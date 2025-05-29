@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>CV Ismael - Développeur Web & Mobile</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Polices modernes -->
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Icônes futuristes -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #00f5d4;
+      --secondary: #9b5de5;
+      --dark: #0a1929;
+      --darker: #061220;
+      --light: #e6f7ff;
+      --card-bg: rgba(25, 40, 65, 0.7);
+      --glow: 0 0 15px rgba(0, 245, 212, 0.5);
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: radial-gradient(circle at center, var(--darker), var(--dark));
+      color: var(--light);
+      font-family: 'Exo 2', sans-serif;
+      line-height: 1.7;
+      min-height: 100vh;
+      overflow-x: hidden;
+      position: relative;
+      padding-bottom: 2rem;
+    }
+    
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 10% 20%, rgba(155, 93, 229, 0.15) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(0, 245, 212, 0.15) 0%, transparent 20%);
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .particle {
+      position: absolute;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: float 15s infinite linear;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-20px) translateX(10px); }
+      100% { transform: translateY(0) translateX(0); }
+    }
+    
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+    
+    .cv-header {
+      text-align: center;
+      padding: 4rem 0 3rem;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .header-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .avatar-container {
+      display: inline-block;
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .avatar-container::before {
+      content: "";
+      position: absolute;
+      top: -15px;
+      left: -15px;
+      right: -15px;
+      bottom: -15px;
+      border-radius: 50%;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      animation: rotate 6s linear infinite;
+      z-index: -1;
+    }
+    
+    .avatar-container::after {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      border-radius: 50%;
+      background: var(--dark);
+      z-index: -1;
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .avatar {
+      width: 180px;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 50%;
+      display: block;
+      position: relative;
+      z-index: 1;
+      border: 4px solid var(--dark);
+      transition: transform 0.5s ease;
+    }
+    
+    .avatar:hover {
+      transform: scale(1.05);
+    }
+    
+    h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(to right, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+    
+    .tagline {
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+      color: var(--primary);
+      font-weight: 300;
+    }
+    
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+    }
+    
+    .contact-icon {
+      color: var(--primary);
+      font-size: 1.3rem;
+    }
+    
+    .grid-layout {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+    
+    .card {
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .card::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, var(--primary), var(--secondary));
+      z-index: -1;
+      border-radius: 22px;
+    }
+    
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: var(--glow), 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+    
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.8rem;
+      border-bottom: 2px solid var(--primary);
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+    
+    .section-title i {
+      font-size: 1.4rem;
+    }
+    
+    p {
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }
+    
+    li {
+      position: relative;
+      padding-left: 2rem;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+    
+    li::before {
+      content: "▹";
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-size: 1.3rem;
+    }
+    
+    .skill-bars {
+      margin-top: 1.5rem;
+    }
+    
+    .skill {
+      margin-bottom: 1.2rem;
+    }
+    
+    .skill-info {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    
+    .skill-name {
+      font-weight: 600;
+    }
+    
+    .skill-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    
+    .skill-progress {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 4px;
+      position: relative;
+      animation: fillBar 1.5s ease-out forwards;
+    }
+    
+    @keyframes fillBar {
+      from { width: 0; }
+      to { width: var(--width); }
+    }
+    
+    .experience-item {
+      margin-bottom: 1.8rem;
+      position: relative;
+      padding-left: 1.5rem;
+    }
+    
+    .experience-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    
+    .experience-item:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 5px;
+      top: 20px;
+      bottom: -1.5rem;
+      width: 2px;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .experience-title {
+      font-size: 1.3rem;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    
+    .experience-company {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    
+    .experience-date {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      margin-bottom: 0.8rem;
+      display: block;
+    }
+    
+    .hologram {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 60px;
+      height: 60px;
+      background: var(--primary);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--dark);
+      font-size: 1.5rem;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: var(--glow);
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.7); }
+      70% { box-shadow: 0 0 0 15px rgba(0, 245, 212, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(0, 245, 212, 0); }
+    }
+    
+    .hologram:hover {
+      animation: none;
+      transform: scale(1.1);
+    }
+    
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2.2rem;
+      }
+      
+      .tagline {
+        font-size: 1.2rem;
+      }
+      
+      .contact-info {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      
+      .avatar {
+        width: 150px;
+        height: 150px;
+      }
+      
+      .grid-layout {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 3rem;
+      padding: 1rem;
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+  </style>
+</head>
+<body>
+  <div class="particles" id="particles"></div>
+  
+  <div class="container">
+    <header class="cv-header">
+      <div class="header-content">
+        <div class="avatar-container">
+          <img src="assets/ismael.jpg" alt="Photo de Ismael" class="avatar">
+        </div>
+        <h1>BOUBACAR ABDOURAMANE Ismael</h1>
+        <div class="tagline">Développeur Web & Mobile | Architecte de Solutions Numériques</div>
+        
+        <div class="contact-info">
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt contact-icon"></i>
+            <span>Tahoua, Niger</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope contact-icon"></i>
+            <span>papyismael@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-phone contact-icon"></i>
+            <span>+227 96 61 78 38</span>
+          </div>
+        </div>
+      </div>
+    </header>
+    
+    <div class="grid-layout">
+      <div class="card">
+        <div class="section-title">
+          <i class="fas fa-user-astronaut"></i>
+          <span>Profil</span>
+        </div>
+        <p>Développeur passionné avec une expérience confirmée dans le développement Web & Mobile, l'intégration Firebase, la gestion de base de données et les systèmes d'automatisation. Capacité d'adaptation, autonomie et esprit d'équipe sont mes forces principales.</p>
+        <p>Spécialisé dans la création d'expériences utilisateur innovantes et l'optimisation des processus numériques pour les entreprises de nouvelle génération.</p>
+      </div>
+      
+      <div class="card">
+  <div class="section-title">
+    <i class="fas fa-laptop-code"></i>
+    <span>Compétences Techniques</span>
+  </div>
+  <div class="skill-bars">
+    <div class="skill">
+      <div class="skill-info">
+        <span class="skill-name">Flutter & Dart</span>
+        <span>95%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="--width: 95%"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span class="skill-name">PHP & MySQL</span>
+        <span>90%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="--width: 90%"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span class="skill-name">Firebase (Auth, DB, Functions)</span>
+        <span>85%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="--width: 85%"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span class="skill-name">JavaScript / jQuery / AJAX</span>
+        <span>80%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="--width: 80%"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span class="skill-name">HTML / CSS / Bootstrap / AdminLTE</span>
+        <span>85%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="--width: 85%"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span class="skill-name">API REST / JSON</span>
+        <span>80%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="--width: 80%"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span class="skill-name">Git / GitHub / GitLab</span>
+        <span>70%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="--width: 70%"></div>
+      </div>
+    </div>
+
+    <div class="skill">
+      <div class="skill-info">
+        <span class="skill-name">Linux / Cron jobs / Hébergement</span>
+        <span>65%</span>
+      </div>
+      <div class="skill-bar">
+        <div class="skill-progress" style="--width: 65%"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+      
+      <div class="card">
+        <div class="section-title">
+          <i class="fas fa-briefcase"></i>
+          <span>Expériences Professionnelles</span>
+        </div>
+        
+        
+        
+        <div class="experience-item">
+          <div class="experience-title">Agent de Scolarité</div>
+          <div class="experience-company">Université Djibo Hamani</div>
+          <div class="experience-date">2020 - 2023</div>
+          <div class="job-description">
+    <ul class="responsibilities">
+      <li>Gestion des inscriptions et accompagnement des étudiants dans les procédures administratives.</li>
+      <li>Gestion des plannings académiques en coordination avec les départements.</li>
+      <li>Mise à jour et maintenance des bases de données des étudiants et des cours.</li>
+      <li>Développement et optimisation d’outils informatiques pour automatiser les tâches administratives.</li>
+      <li>Suivi des dossiers scolaires électroniques pour assurer conformité et intégrité.</li>
+      <li>Analyse des besoins utilisateurs pour améliorer les systèmes de gestion scolaire.</li>
+      <li>Conception et développement d'applications mobiles adaptées aux processus de scolarité.</li>
+      <li>Intégration et gestion de bases de données fiables pour la gestion des informations de scolarité.</li>
+      <li>Collaboration avec les équipes pédagogiques pour des solutions informatiques sur mesure.</li>
+      <li>Développement de modules personnalisés facilitant la communication avec les étudiants.</li>
+      <li>Mise en place de procédures informatisées pour la gestion des documents officiels.</li>
+      <li>Participation active à la transition numérique sécurisée des dossiers étudiants.</li>
+    </ul>
+  </div>
+        </div>
+        <div class="experience-item">
+          <div class="experience-title">Développeur Full-Stack</div>
+          <div class="experience-company">AderTic</div>
+          <div class="experience-date">Depuis 2023</div>
+          <p>Co-fondateur et développeur principal d'applications mobiles/web, systèmes internes et automatisation de processus. Conception d'architectures cloud-native et mise en place de pipelines CI/CD.</p>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="section-title">
+          <i class="fas fa-graduation-cap"></i>
+          <span>Formations</span>
+        </div>
+        
+        <div class="experience-item">
+          <div class="experience-title">Master Professionnel en Génie Logiciel</div>
+          <div class="experience-company">Université Djibo Hamani</div>
+          <div class="experience-date">2020 - 2022</div>
+        </div>
+        
+        <div class="experience-item">
+          <div class="experience-title">DUT en Informatique de Gestion</div>
+          <div class="experience-company">IUT Tahoua</div>
+          <div class="experience-date">2017 - 2020</div>
+        </div>
+      </div>
+      
+      <div class="card">
+        <div class="section-title">
+          <i class="fas fa-language"></i>
+          <span>Langues</span>
+        </div>
+        <ul>
+          <li>Français (courant)</li>
+          <li>Anglais (intermédiaire)</li>
+          <li>Hausa (langue maternelle)</li>
+        </ul>
+      </div>
+      
+      <div class="card">
+        <div class="section-title">
+          <i class="fas fa-rocket"></i>
+          <span>Centres d'intérêt</span>
+        </div>
+        <ul>
+          <li>Crypto-monnaies & Blockchain</li>
+          <li>Automatisation & Intelligence Artificielle</li>
+          <li>Énergies renouvelables</li>
+          <li>Innovation numérique locale</li>
+          <li>Réalité augmentée & Métavers</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  
+  <div class="hologram">
+    <i class="fas fa-bolt"></i>
+  </div>
+  
+  <footer>
+    &copy; 2030 BOUBACAR ABDOURAMANE Ismael - Tous droits réservés
+  </footer>
+  
+  <script>
+    // Création des particules animées
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 30;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Position aléatoire
+        const posX = Math.random() * 100;
+        const posY = Math.random() * 100;
+        
+        // Taille aléatoire
+        const size = Math.random() * 6 + 2;
+        
+        // Animation delay aléatoire
+        const delay = Math.random() * 15;
+        
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        particle.style.left = `${posX}%`;
+        particle.style.top = `${posY}%`;
+        particle.style.animationDelay = `${delay}s`;
+        particle.style.opacity = Math.random() * 0.5 + 0.1;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Animation de la carte au survol
+    function initCardHover() {
+      const cards = document.querySelectorAll('.card');
+      
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          
+          const centerX = rect.width / 2;
+          const centerY = rect.height / 2;
+          
+          const angleY = (x - centerX) / 8;
+          const angleX = (centerY - y) / 8;
+          
+          card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-10px)`;
+        });
+        
+        card.addEventListener('mouseleave', () => {
+          card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
+        });
+      });
+    }
+    
+    // Initialisation
+    document.addEventListener('DOMContentLoaded', () => {
+      createParticles();
+      initCardHover();
+    });
+  </script>
+</body>
+</html>
