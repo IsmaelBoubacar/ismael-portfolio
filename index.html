@@ -2,21 +2,20 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>CV Ismael - Développeur Web & Mobile</title>
+  <title>Ismael - Blockchain Developer</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- Polices modernes -->
-  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@300;400;600;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
-  <!-- Icônes futuristes -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;600;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary: #00f5d4;
-      --secondary: #9b5de5;
-      --dark: #0a1929;
-      --darker: #061220;
-      --light: #e6f7ff;
-      --card-bg: rgba(25, 40, 65, 0.7);
-      --glow: 0 0 15px rgba(0, 245, 212, 0.5);
+      --neon-blue: #00f5ff;
+      --neon-purple: #bd00ff;
+      --neon-green: #39ff14;
+      --dark-bg: #0a0e27;
+      --darker-bg: #050816;
+      --card-bg: rgba(15, 23, 42, 0.8);
+      --text-light: #e2e8f0;
+      --text-dim: #94a3b8;
     }
     
     * {
@@ -26,674 +25,753 @@
     }
     
     body {
-      background: radial-gradient(circle at center, var(--darker), var(--dark));
-      color: var(--light);
-      font-family: 'Exo 2', sans-serif;
+      background: var(--darker-bg);
+      color: var(--text-light);
+      font-family: 'Space Grotesk', sans-serif;
       line-height: 1.7;
-      min-height: 100vh;
       overflow-x: hidden;
-      position: relative;
-      padding-bottom: 2rem;
     }
     
-    body::before {
-      content: "";
+    /* Animated background grid */
+    .bg-grid {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
-      background: 
-        radial-gradient(circle at 10% 20%, rgba(155, 93, 229, 0.15) 0%, transparent 20%),
-        radial-gradient(circle at 90% 80%, rgba(0, 245, 212, 0.15) 0%, transparent 20%);
-      z-index: -1;
+      background-image: 
+        linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+      z-index: 0;
       pointer-events: none;
     }
     
-    .particles {
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+    
+    /* Glowing orbs */
+    .orb {
       position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      pointer-events: none;
-    }
-    
-    .particle {
-      position: absolute;
-      background: var(--primary);
       border-radius: 50%;
-      opacity: 0.4;
-      animation: float 15s infinite linear;
+      filter: blur(80px);
+      opacity: 0.3;
+      pointer-events: none;
+      z-index: 0;
+      animation: float 15s ease-in-out infinite;
+    }
+    
+    .orb-1 {
+      width: 500px;
+      height: 500px;
+      background: var(--neon-blue);
+      top: -10%;
+      left: -10%;
+    }
+    
+    .orb-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--neon-purple);
+      bottom: -10%;
+      right: -10%;
+      animation-delay: -5s;
+    }
+    
+    .orb-3 {
+      width: 350px;
+      height: 350px;
+      background: var(--neon-green);
+      top: 50%;
+      right: 20%;
+      animation-delay: -10s;
     }
     
     @keyframes float {
-      0% { transform: translateY(0) translateX(0); }
-      50% { transform: translateY(-20px) translateX(10px); }
-      100% { transform: translateY(0) translateX(0); }
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(30px, -30px) scale(1.1); }
+      66% { transform: translate(-20px, 20px) scale(0.9); }
     }
     
-    .container {
-      max-width: 1200px;
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 1.5rem 0;
+      backdrop-filter: blur(10px);
+      background: rgba(10, 14, 39, 0.7);
+      border-bottom: 1px solid rgba(0, 245, 255, 0.1);
+      z-index: 1000;
+    }
+    
+    .nav-container {
+      max-width: 1400px;
       margin: 0 auto;
       padding: 0 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     
-    .cv-header {
-      text-align: center;
-      padding: 4rem 0 3rem;
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .header-content {
-      position: relative;
-      z-index: 2;
-    }
-    
-    .avatar-container {
-      display: inline-block;
-      position: relative;
-      margin-bottom: 1.5rem;
-    }
-    
-    .avatar-container::before {
-      content: "";
-      position: absolute;
-      top: -15px;
-      left: -15px;
-      right: -15px;
-      bottom: -15px;
-      border-radius: 50%;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
-      animation: rotate 6s linear infinite;
-      z-index: -1;
-    }
-    
-    .avatar-container::after {
-      content: "";
-      position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      border-radius: 50%;
-      background: var(--dark);
-      z-index: -1;
-    }
-    
-    @keyframes rotate {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-    
-    .avatar {
-      width: 180px;
-      height: 180px;
-      object-fit: cover;
-      border-radius: 50%;
-      display: block;
-      position: relative;
-      z-index: 1;
-      border: 4px solid var(--dark);
-      transition: transform 0.5s ease;
-    }
-    
-    .avatar:hover {
-      transform: scale(1.05);
-    }
-    
-    h1 {
+    .logo {
       font-family: 'Orbitron', sans-serif;
-      font-size: 2.8rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      background: linear-gradient(to right, var(--primary), var(--secondary));
+      font-size: 1.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      letter-spacing: 1px;
-      text-transform: uppercase;
+      letter-spacing: 2px;
     }
     
-    .tagline {
-      font-size: 1.4rem;
-      margin-bottom: 1.5rem;
-      color: var(--primary);
-      font-weight: 300;
-    }
-    
-    .contact-info {
+    .nav-links {
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      margin-bottom: 1rem;
-    }
-    
-    .contact-item {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 1.1rem;
-    }
-    
-    .contact-icon {
-      color: var(--primary);
-      font-size: 1.3rem;
-    }
-    
-    .grid-layout {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 2rem;
-      margin-top: 2rem;
+      list-style: none;
     }
     
-    .card {
-      background: var(--card-bg);
-      border-radius: 20px;
-      padding: 2rem;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-      transition: all 0.4s ease;
+    .nav-links a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
       position: relative;
-      overflow: hidden;
     }
     
-    .card::before {
-      content: "";
+    .nav-links a::after {
+      content: '';
       position: absolute;
-      top: -2px;
-      left: -2px;
-      right: -2px;
-      bottom: -2px;
-      background: linear-gradient(45deg, var(--primary), var(--secondary));
-      z-index: -1;
-      border-radius: 22px;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--neon-blue);
+      transition: width 0.3s;
     }
     
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: var(--glow), 0 15px 35px rgba(0, 0, 0, 0.4);
+    .nav-links a:hover::after {
+      width: 100%;
     }
     
-    .section-title {
-      font-family: 'Orbitron', sans-serif;
-      font-size: 1.5rem;
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.8rem;
-      border-bottom: 2px solid var(--primary);
-      color: var(--primary);
+    /* Container */
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+    
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
       display: flex;
       align-items: center;
-      gap: 0.8rem;
+      padding-top: 100px;
     }
     
-    .section-title i {
-      font-size: 1.4rem;
+    .hero-content {
+      max-width: 800px;
     }
     
-    p {
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-    }
-    
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-    }
-    
-    li {
-      position: relative;
-      padding-left: 2rem;
-      margin-bottom: 1rem;
-      font-size: 1.1rem;
-    }
-    
-    li::before {
-      content: "▹";
-      position: absolute;
-      left: 0;
-      color: var(--primary);
-      font-size: 1.3rem;
-    }
-    
-    .skill-bars {
-      margin-top: 1.5rem;
-    }
-    
-    .skill {
-      margin-bottom: 1.2rem;
-    }
-    
-    .skill-info {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 0.5rem;
-    }
-    
-    .skill-name {
-      font-weight: 600;
-    }
-    
-    .skill-bar {
-      height: 8px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    
-    .skill-progress {
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      border-radius: 4px;
-      position: relative;
-      animation: fillBar 1.5s ease-out forwards;
-    }
-    
-    @keyframes fillBar {
-      from { width: 0; }
-      to { width: var(--width); }
-    }
-    
-    .experience-item {
-      margin-bottom: 1.8rem;
-      position: relative;
-      padding-left: 1.5rem;
-    }
-    
-    .experience-item::before {
-      content: "";
-      position: absolute;
-      left: 0;
-      top: 8px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--primary);
-    }
-    
-    .experience-item:not(:last-child)::after {
-      content: "";
-      position: absolute;
-      left: 5px;
-      top: 20px;
-      bottom: -1.5rem;
-      width: 2px;
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    .experience-title {
-      font-size: 1.3rem;
-      color: var(--primary);
-      margin-bottom: 0.3rem;
-    }
-    
-    .experience-company {
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-    
-    .experience-date {
+    .hero-tag {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 245, 255, 0.1);
+      border: 1px solid var(--neon-blue);
+      border-radius: 50px;
+      color: var(--neon-blue);
       font-size: 0.9rem;
-      opacity: 0.8;
-      margin-bottom: 0.8rem;
-      display: block;
-    }
-    
-    .hologram {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      width: 60px;
-      height: 60px;
-      background: var(--primary);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--dark);
-      font-size: 1.5rem;
-      cursor: pointer;
-      z-index: 100;
-      box-shadow: var(--glow);
+      margin-bottom: 2rem;
       animation: pulse 2s infinite;
     }
     
     @keyframes pulse {
-      0% { box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.7); }
-      70% { box-shadow: 0 0 0 15px rgba(0, 245, 212, 0); }
-      100% { box-shadow: 0 0 0 0 rgba(0, 245, 212, 0); }
+      0%, 100% { box-shadow: 0 0 0 0 rgba(0, 245, 255, 0.4); }
+      50% { box-shadow: 0 0 0 10px rgba(0, 245, 255, 0); }
     }
     
-    .hologram:hover {
-      animation: none;
-      transform: scale(1.1);
+    .hero h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-green));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
     }
     
-    @media (max-width: 768px) {
-      h1 {
-        font-size: 2.2rem;
-      }
-      
-      .tagline {
-        font-size: 1.2rem;
-      }
-      
-      .contact-info {
-        flex-direction: column;
-        gap: 0.8rem;
-      }
-      
-      .avatar {
-        width: 150px;
-        height: 150px;
-      }
-      
-      .grid-layout {
-        grid-template-columns: 1fr;
-      }
+    .hero p {
+      font-size: 1.3rem;
+      color: var(--text-dim);
+      margin-bottom: 2rem;
+      line-height: 1.8;
     }
     
+    .cta-buttons {
+      display: flex;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    
+    .btn {
+      padding: 1rem 2rem;
+      border-radius: 50px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.3s;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 2px solid;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      color: var(--darker-bg);
+      border-color: transparent;
+      box-shadow: 0 0 20px rgba(0, 245, 255, 0.3);
+    }
+    
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 0 30px rgba(0, 245, 255, 0.5);
+    }
+    
+    .btn-secondary {
+      background: transparent;
+      color: var(--neon-blue);
+      border-color: var(--neon-blue);
+    }
+    
+    .btn-secondary:hover {
+      background: rgba(0, 245, 255, 0.1);
+      transform: translateY(-3px);
+    }
+    
+    /* Section */
+    section {
+      padding: 100px 0;
+    }
+    
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+    
+    .section-tag {
+      color: var(--neon-blue);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    
+    .section-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+    }
+    
+    /* Skills Grid */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+    
+    .skill-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0, 245, 255, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      transition: all 0.3s;
+    }
+    
+    .skill-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--neon-blue);
+      box-shadow: 0 20px 40px rgba(0, 245, 255, 0.2);
+    }
+    
+    .skill-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin-bottom: 1.5rem;
+      color: var(--darker-bg);
+    }
+    
+    .skill-card h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.8rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+    
+    .skill-card p {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+    }
+    
+    /* Projects Grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+    
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0, 245, 255, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    
+    .project-card:hover {
+      transform: translateY(-10px);
+      border-color: var(--neon-purple);
+      box-shadow: 0 20px 40px rgba(189, 0, 255, 0.2);
+    }
+    
+    .project-image {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, rgba(0, 245, 255, 0.2), rgba(189, 0, 255, 0.2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: var(--neon-blue);
+    }
+    
+    .project-content {
+      padding: 2rem;
+    }
+    
+    .project-tags {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+    
+    .tag {
+      padding: 0.3rem 0.8rem;
+      background: rgba(0, 245, 255, 0.1);
+      border: 1px solid var(--neon-blue);
+      border-radius: 20px;
+      font-size: 0.75rem;
+      color: var(--neon-blue);
+    }
+    
+    .project-card h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-family: 'Orbitron', sans-serif;
+    }
+    
+    .project-card p {
+      color: var(--text-dim);
+      margin-bottom: 1.5rem;
+    }
+    
+    .project-links {
+      display: flex;
+      gap: 1rem;
+    }
+    
+    .project-link {
+      padding: 0.5rem 1rem;
+      background: rgba(0, 245, 255, 0.1);
+      border: 1px solid var(--neon-blue);
+      border-radius: 30px;
+      color: var(--neon-blue);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    .project-link:hover {
+      background: var(--neon-blue);
+      color: var(--darker-bg);
+    }
+    
+    /* Contact Section */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .contact-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(0, 245, 255, 0.2);
+      border-radius: 20px;
+      padding: 2rem;
+      text-align: center;
+      transition: all 0.3s;
+    }
+    
+    .contact-card:hover {
+      border-color: var(--neon-green);
+      box-shadow: 0 20px 40px rgba(57, 255, 20, 0.2);
+    }
+    
+    .contact-icon {
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, var(--neon-green), var(--neon-blue));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      margin: 0 auto 1.5rem;
+      color: var(--darker-bg);
+    }
+    
+    .contact-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .contact-card a {
+      color: var(--neon-blue);
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .contact-card a:hover {
+      color: var(--neon-green);
+    }
+    
+    /* Footer */
     footer {
       text-align: center;
-      margin-top: 3rem;
-      padding: 1rem;
-      font-size: 0.9rem;
-      opacity: 0.7;
+      padding: 3rem 0;
+      border-top: 1px solid rgba(0, 245, 255, 0.1);
+      color: var(--text-dim);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2.5rem;
+      }
+      
+      .hero p {
+        font-size: 1.1rem;
+      }
+      
+      .nav-links {
+        display: none;
+      }
+      
+      .projects-grid,
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="particles" id="particles"></div>
+  <div class="bg-grid"></div>
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+  
+  <nav>
+    <div class="nav-container">
+      <div class="logo">ISMAEL.DEV</div>
+      <ul class="nav-links">
+        <li><a href="#skills">Compétences</a></li>
+        <li><a href="#projects">Projets</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+  </nav>
   
   <div class="container">
-    <header class="cv-header">
-      <div class="header-content">
-        <div class="avatar-container">
-          <img src="ismael.jpg" alt="Photo de Ismael" class="avatar">
+    <section class="hero">
+      <div class="hero-content">
+        <div class="hero-tag">
+          <i class="fas fa-cube"></i> Blockchain Developer
         </div>
-        <h1>BOUBACAR ABDOURAMANE Ismael</h1>
-        <div class="tagline">Développeur Web & Mobile | Architecte de Solutions Numériques</div>
-        
-        <div class="contact-info">
-          <div class="contact-item">
-            <i class="fas fa-map-marker-alt contact-icon"></i>
-            <span>Tahoua, Niger</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-envelope contact-icon"></i>
-            <span>papyismael@gmail.com</span>
-          </div>
-          <div class="contact-item">
-            <i class="fas fa-phone contact-icon"></i>
-            <span>+227 96 61 78 38</span>
-          </div>
+        <h1>Construire le Web3<br>Décentralisé</h1>
+        <p>Développeur blockchain spécialisé dans les smart contracts Ethereum et Hedera. Je transforme des idées innovantes en applications décentralisées sécurisées et performantes.</p>
+        <div class="cta-buttons">
+          <a href="#projects" class="btn btn-primary">
+            <i class="fas fa-rocket"></i> Voir mes projets
+          </a>
+          <a href="#contact" class="btn btn-secondary">
+            <i class="fas fa-envelope"></i> Me contacter
+          </a>
         </div>
       </div>
-    </header>
+    </section>
     
-    <div class="grid-layout">
-      <div class="card">
-        <div class="section-title">
-          <i class="fas fa-user-astronaut"></i>
-          <span>Profil</span>
-        </div>
-        <p>Développeur passionné avec une expérience confirmée dans le développement Web & Mobile, l'intégration Firebase, la gestion de base de données et les systèmes d'automatisation. Capacité d'adaptation, autonomie et esprit d'équipe sont mes forces principales.</p>
-        <p>Spécialisé dans la création d'expériences utilisateur innovantes et l'optimisation des processus numériques pour les entreprises de nouvelle génération.</p>
+    <section id="skills">
+      <div class="section-header">
+        <div class="section-tag">Expertise</div>
+        <h2 class="section-title">Stack Technique Blockchain</h2>
       </div>
       
-      <div class="card">
-  <div class="section-title">
-    <i class="fas fa-laptop-code"></i>
-    <span>Compétences Techniques</span>
-  </div>
-  <div class="skill-bars">
-    <div class="skill">
-      <div class="skill-info">
-        <span class="skill-name">Flutter & Dart</span>
-        <span>95%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="--width: 95%"></div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <div class="skill-info">
-        <span class="skill-name">PHP & MySQL</span>
-        <span>90%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="--width: 90%"></div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <div class="skill-info">
-        <span class="skill-name">Firebase (Auth, DB, Functions)</span>
-        <span>85%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="--width: 85%"></div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <div class="skill-info">
-        <span class="skill-name">JavaScript / jQuery / AJAX</span>
-        <span>80%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="--width: 80%"></div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <div class="skill-info">
-        <span class="skill-name">HTML / CSS / Bootstrap / AdminLTE</span>
-        <span>85%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="--width: 85%"></div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <div class="skill-info">
-        <span class="skill-name">API REST / JSON</span>
-        <span>80%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="--width: 80%"></div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <div class="skill-info">
-        <span class="skill-name">Git / GitHub / GitLab</span>
-        <span>70%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="--width: 70%"></div>
-      </div>
-    </div>
-
-    <div class="skill">
-      <div class="skill-info">
-        <span class="skill-name">Linux / Cron jobs / Hébergement</span>
-        <span>65%</span>
-      </div>
-      <div class="skill-bar">
-        <div class="skill-progress" style="--width: 65%"></div>
-      </div>
-    </div>
-  </div>
-</div>
-
-      
-      <div class="card">
-        <div class="section-title">
-          <i class="fas fa-briefcase"></i>
-          <span>Expériences Professionnelles</span>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fab fa-ethereum"></i></div>
+          <h3>Solidity</h3>
+          <p>Développement de smart contracts sécurisés avec Solidity. ERC-20, ERC-721, patterns avancés et optimisation gas.</p>
         </div>
         
-        
-        
-        <div class="experience-item">
-          <div class="experience-title">Agent de Scolarité</div>
-          <div class="experience-company">Université Djibo Hamani</div>
-          <div class="experience-date">2020 - 2023</div>
-          <div class="job-description">
-    <ul class="responsibilities">
-      <li>Gestion des inscriptions et accompagnement des étudiants dans les procédures administratives.</li>
-      <li>Gestion des plannings académiques en coordination avec les départements.</li>
-      <li>Mise à jour et maintenance des bases de données des étudiants et des cours.</li>
-      <li>Développement et optimisation d’outils informatiques pour automatiser les tâches administratives.</li>
-      <li>Suivi des dossiers scolaires électroniques pour assurer conformité et intégrité.</li>
-      <li>Analyse des besoins utilisateurs pour améliorer les systèmes de gestion scolaire.</li>
-      <li>Conception et développement d'applications mobiles adaptées aux processus de scolarité.</li>
-      <li>Intégration et gestion de bases de données fiables pour la gestion des informations de scolarité.</li>
-      <li>Collaboration avec les équipes pédagogiques pour des solutions informatiques sur mesure.</li>
-      <li>Développement de modules personnalisés facilitant la communication avec les étudiants.</li>
-      <li>Mise en place de procédures informatisées pour la gestion des documents officiels.</li>
-      <li>Participation active à la transition numérique sécurisée des dossiers étudiants.</li>
-    </ul>
-  </div>
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-hammer"></i></div>
+          <h3>Hardhat & Foundry</h3>
+          <p>Maîtrise des frameworks de développement moderne : tests, déploiement, vérification et scripts d'automatisation.</p>
         </div>
-        <div class="experience-item">
-          <div class="experience-title">Développeur Full-Stack</div>
-          <div class="experience-company">AderTic</div>
-          <div class="experience-date">Depuis 2023</div>
-          <p>Co-fondateur et développeur principal d'applications mobiles/web, systèmes internes et automatisation de processus. Conception d'architectures cloud-native et mise en place de pipelines CI/CD.</p>
+        
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-code"></i></div>
+          <h3>Ethers.js / Web3</h3>
+          <p>Intégration frontend avec React, connexion wallets, et interaction avec les smart contracts via Ethers.js et Viem.</p>
         </div>
+        
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-shield-alt"></i></div>
+          <h3>Sécurité Web3</h3>
+          <p>Audit de smart contracts, prévention des vulnérabilités (reentrancy, overflow) et bonnes pratiques OpenZeppelin.</p>
+        </div>
+        
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-network-wired"></i></div>
+          <h3>Hedera Hashgraph</h3>
+          <p>Développement sur Hedera : HTS, HCS, smart contracts. Certifié Hashgraph Developer Course.</p>
+        </div>
+        
+        <div class="skill-card">
+          <div class="skill-icon"><i class="fas fa-layer-group"></i></div>
+          <h3>DeFi & NFTs</h3>
+          <p>Architecture de protocoles DeFi (staking, lending) et création de collections NFT avec marketplaces.</p>
+        </div>
+      </div>
+    </section>
+    
+    <section id="projects">
+      <div class="section-header">
+        <div class="section-tag">Portfolio</div>
+        <h2 class="section-title">Projets Blockchain</h2>
       </div>
       
-      <div class="card">
-        <div class="section-title">
-          <i class="fas fa-graduation-cap"></i>
-          <span>Formations</span>
+      <div class="projects-grid">
+        <div class="project-card">
+          <div class="project-image">
+            <i class="fas fa-graduation-cap"></i>
+          </div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="tag">Solidity</span>
+              <span class="tag">NFT</span>
+              <span class="tag">Education</span>
+            </div>
+            <h3>UDH Certification</h3>
+            <p>Système de certification académique on-chain pour l'Université Djibo Hamani. Délivrance et vérification de diplômes via NFT/SBT.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+              <a href="#" class="project-link">
+                <i class="fas fa-external-link-alt"></i> Demo
+              </a>
+            </div>
+          </div>
         </div>
         
-        <div class="experience-item">
-          <div class="experience-title">Master Professionnel en Génie Logiciel</div>
-          <div class="experience-company">Université Djibo Hamani</div>
-          <div class="experience-date">2020 - 2022</div>
-        </div>
-        <div class="experience-item">
-          <div class="experience-title">Licence en Informatique de Gestion</div>
-          <div class="experience-company">IUT Tahoua</div>
-          <div class="experience-date">2019 - 2020</div>
+        <div class="project-card">
+          <div class="project-image">
+            <i class="fas fa-coins"></i>
+          </div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="tag">ERC-20</span>
+              <span class="tag">DeFi</span>
+              <span class="tag">Staking</span>
+            </div>
+            <h3>Staking Rewards dApp</h3>
+            <p>Plateforme de staking avec système de récompenses automatiques. Interface React complète avec MetaMask integration.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+              <a href="#" class="project-link">
+                <i class="fas fa-external-link-alt"></i> Demo
+              </a>
+            </div>
+          </div>
         </div>
         
-        <div class="experience-item">
-          <div class="experience-title">DUT en Informatique de Gestion</div>
-          <div class="experience-company">IUT Tahoua</div>
-          <div class="experience-date">2017 - 2019</div>
+        <div class="project-card">
+          <div class="project-image">
+            <i class="fas fa-vote-yea"></i>
+          </div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="tag">DAO</span>
+              <span class="tag">Governance</span>
+              <span class="tag">Voting</span>
+            </div>
+            <h3>Decentralized Voting</h3>
+            <p>Système de vote décentralisé avec création de propositions, vote pondéré et timelock pour résultats transparents.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+              <a href="#" class="project-link">
+                <i class="fas fa-external-link-alt"></i> Demo
+              </a>
+            </div>
+          </div>
         </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="tag">Multi-chain</span>
+              <span class="tag">Dashboard</span>
+              <span class="tag">Analytics</span>
+            </div>
+            <h3>Web3 Portfolio Dashboard</h3>
+            <p>Dashboard multi-chain pour suivre tokens, NFTs et transactions. Support Ethereum, Hedera et Layer 2.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+              <a href="#" class="project-link">
+                <i class="fas fa-external-link-alt"></i> Demo
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <i class="fas fa-cube"></i>
+          </div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="tag">Hedera</span>
+              <span class="tag">HTS</span>
+              <span class="tag">Token</span>
+            </div>
+            <h3>Hedera Token Service</h3>
+            <p>Création et gestion de tokens sur Hedera via HTS. Exemple d'utilisation du Hedera SDK avec interface intuitive.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+              <a href="#" class="project-link">
+                <i class="fas fa-external-link-alt"></i> Demo
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-image">
+            <i class="fas fa-robot"></i>
+          </div>
+          <div class="project-content">
+            <div class="project-tags">
+              <span class="tag">ERC-721</span>
+              <span class="tag">NFT</span>
+              <span class="tag">Marketplace</span>
+            </div>
+            <h3>NFT Marketplace</h3>
+            <p>Marketplace NFT avec minting, listing, bidding et royalties. Smart contracts audités et interface moderne.</p>
+            <div class="project-links">
+              <a href="#" class="project-link">
+                <i class="fab fa-github"></i> Code
+              </a>
+              <a href="#" class="project-link">
+                <i class="fas fa-external-link-alt"></i> Demo
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section id="contact">
+      <div class="section-header">
+        <div class="section-tag">Connectons-nous</div>
+        <h2 class="section-title">Travaillons Ensemble</h2>
+        <p style="max-width: 600px; margin: 1rem auto; color: var(--text-dim);">
+          Vous avez un projet blockchain ou besoin d'expertise en Web3 ? 
+          N'hésitez pas à me contacter pour discuter de votre vision.
+        </p>
       </div>
       
-      <div class="card">
-        <div class="section-title">
-          <i class="fas fa-language"></i>
-          <span>Langues</span>
+      <div class="contact-grid">
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <h3>Email</h3>
+          <a href="mailto:papyismael@gmail.com">papyismael@gmail.com</a>
         </div>
-        <ul>
-          <li>Français (courant)</li>
-          <li>Anglais (intermédiaire)</li>
-          <li>Hausa (langue maternelle)</li>
-        </ul>
-      </div>
-      
-      <div class="card">
-        <div class="section-title">
-          <i class="fas fa-rocket"></i>
-          <span>Centres d'intérêt</span>
+        
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fab fa-github"></i>
+          </div>
+          <h3>GitHub</h3>
+          <a href="https://github.com/ismael" target="_blank">@ismael</a>
         </div>
-        <ul>
-          <li>Crypto-monnaies & Blockchain</li>
-          <li>Automatisation & Intelligence Artificielle</li>
-          <li>Énergies renouvelables</li>
-          <li>Innovation numérique locale</li>
-          <li>Réalité augmentée & Métavers</li>
-        </ul>
+        
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fab fa-linkedin"></i>
+          </div>
+          <h3>LinkedIn</h3>
+          <a href="https://linkedin.com/in/ismael" target="_blank">Ismael Boubacar</a>
+        </div>
+        
+        <div class="contact-card">
+          <div class="contact-icon">
+            <i class="fab fa-twitter"></i>
+          </div>
+          <h3>Twitter</h3>
+          <a href="https://twitter.com/ismael" target="_blank">@ismael_web3</a>
+        </div>
       </div>
-    </div>
-  </div>
-  
-  <div class="hologram">
-    <i class="fas fa-bolt"></i>
+    </section>
   </div>
   
   <footer>
-    &copy; 2025 BOUBACAR ABDOURAMANE Ismael - Tous droits réservés
+    <div class="container">
+      <p>&copy; 2025 Ismael Boubacar Abdouramane - Blockchain Developer</p>
+      <p style="margin-top: 0.5rem; font-size: 0.9rem;">Built with passion for the decentralized future 🚀</p>
+    </div>
   </footer>
-  
-  <script>
-    // Création des particules animées
-    function createParticles() {
-      const particlesContainer = document.getElementById('particles');
-      const particleCount = 30;
-      
-      for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.classList.add('particle');
-        
-        // Position aléatoire
-        const posX = Math.random() * 100;
-        const posY = Math.random() * 100;
-        
-        // Taille aléatoire
-        const size = Math.random() * 6 + 2;
-        
-        // Animation delay aléatoire
-        const delay = Math.random() * 15;
-        
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.left = `${posX}%`;
-        particle.style.top = `${posY}%`;
-        particle.style.animationDelay = `${delay}s`;
-        particle.style.opacity = Math.random() * 0.5 + 0.1;
-        
-        particlesContainer.appendChild(particle);
-      }
-    }
-    
-    // Animation de la carte au survol
-    function initCardHover() {
-      const cards = document.querySelectorAll('.card');
-      
-      cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left;
-          const y = e.clientY - rect.top;
-          
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          
-          const angleY = (x - centerX) / 8;
-          const angleX = (centerY - y) / 8;
-          
-          card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-10px)`;
-        });
-        
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-      });
-    }
-    
-    // Initialisation
-    document.addEventListener('DOMContentLoaded', () => {
-      createParticles();
-      initCardHover();
-    });
-  </script>
 </body>
 </html>
